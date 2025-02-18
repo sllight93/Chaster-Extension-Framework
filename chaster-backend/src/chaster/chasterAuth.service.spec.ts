@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ChasterService } from './chaster.service';
+import { ChasterAuthService } from './chasterAuth.service';
 
-describe('ChasterService', () => {
-  let service: ChasterService;
+describe('ChasterAuthService', () => {
+  let service: ChasterAuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ChasterService],
+      providers: [ChasterAuthService],
     }).compile();
 
-    service = module.get<ChasterService>(ChasterService);
+    service = module.get<ChasterAuthService>(ChasterAuthService);
   });
-
+ 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });

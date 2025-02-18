@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ChasterService } from './chaster/chaster.service';
+import { IncementModule } from './api/incement/incement.module';
+import { ChasterAuthService } from './chaster/chasterAuth.service';
+
+//import { ChasterService } from './chaster/chaster.service';
 
 @Module({
-  imports: [],
+  imports: [IncementModule],
   controllers: [AppController],
-  providers: [AppService, ChasterService],
+  providers: [AppService, ChasterAuthService],
+  exports: [ChasterAuthService],
 })
 export class AppModule {}
