@@ -1,15 +1,22 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { IncementModule } from './api/incement/incement.module';
-import { ChasterAuthService } from './chaster/chasterAuth.service';
+import { WebhooksModule } from './api/webhooks/webhooks.module';
+import { LockModule } from './api/lock/lock.module';
 
-//import { ChasterService } from './chaster/chaster.service';
 
 @Module({
-  imports: [IncementModule],
-  controllers: [AppController],
-  providers: [AppService, ChasterAuthService],
-  exports: [ChasterAuthService],
+  imports: [ 
+    WebhooksModule,
+    LockModule
+  ],
+  controllers: [
+    AppController,
+  ],
+  providers: [
+    AppService, 
+  ],
+  exports: [],
 })
+
 export class AppModule {}

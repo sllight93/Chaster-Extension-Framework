@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 /* 
   Chaster Extension – Beispiel-CSS 
@@ -40,13 +43,127 @@
 .subtext {
   color: var(--color-text-light);
 }
+
+hr {
+  border-top: 1px solid #1c1a24;
+}
+hr {
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
 /* Body-Grundeinstellungen */
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-lightdark);
   color: var(--color-text);
-  font-family: 'Nunito', sans-serif;
+  font-family: Nunito,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+}
+
+label {
+  align-self: flex-start;
+  line-height: 1.42858rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  font-weight: 400;
+  color:#fff;
+  font-size: 1rem;
+  margin: 0 0 8px;
+  gap: 2px
+}
+
+/* Wenn ausgewählt, füllt sich der Kreis */
+.radio-input:checked + .radio-custom {
+  background-color: var(--color-accent, #6d7dd1);
+  border-color: var(--color-accent, #6d7dd1);
+}
+
+/* Kleiner innerer Punkt, der erscheint, wenn ausgewählt */
+/* Container, der die einzelnen Optionsfelder vertikal anordnet */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Abstand zwischen den Einträgen */
+}
+
+/* Label: Zeilenweise Anordnung, sodass der Kreis und der Text nebeneinander stehen */
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+/* Das native Radio-Input ausblenden */
+.radio-input {
+  display: none;
+}
+
+/* Das eigene, runde Radio-Element */
+.radio-custom {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-border, #fff);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  position: relative;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Innerer Punkt, der angezeigt wird, wenn das Radio ausgewählt ist */
+.radio-custom::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-text, #fff);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Bei Auswahl erscheint der innere Punkt */
+.radio-input:checked + .radio-custom::after {
+  opacity: 1;
+}
+
+/* Text neben dem Radio */
+.radio-text {
+  font-size: 1rem;
+  color: var(--color-text, #fff);
+}
+
+
+
+
+.checkbox-label{
+  margin-left: 8px;
+  margin-top: 8px;
+}
+.checkbox-wrapper {
+  margin-bottom: 1rem;
+  display: flex;
+  line-height: 0;
+  align-items: center;
+}
+.caption {
+  color:#a4a7b7;
 }
 
 
@@ -142,6 +259,32 @@ body {
   border-color: var(--color-accent);
 }
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-common-black, #22212c);
+  border: 1px solid var(--color-border, #444);
+  border-radius: 4px; /* Optional, je nach gewünschtem Rundungsgrad */
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+/* Anzeige eines Häkchens, wenn die Checkbox aktiviert ist */
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
 
 
 

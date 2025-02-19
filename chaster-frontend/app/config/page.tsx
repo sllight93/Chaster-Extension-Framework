@@ -39,35 +39,35 @@ const baseConfig: Record<string, Config> = {
 
 // Nur die Gewichtsanpassungen pro Difficulty
 const weightAdjustments: Record<string, Record<string, number>> = {
-  Easy: {
+  "Easy - Low chance of modifing a vote.": {
     nothing: 500,
     double: 10,
     invert: 25,
     double_invert: 10,
     jackpot: 1,
   },
-  Normal: {
+  "Normal - Medium chance of modifing a vote.": {
     nothing: 300,
     double: 20,
     invert: 39,
     double_invert: 20,
     jackpot: 1,
   },
-  Hard: {
+  "Hard Settings - Depending your required visits this can take weeks!": {
     nothing: 200,
     double: 15,
     invert: 35,
     double_invert: 15,
     jackpot: 1,
   },
-  Extreme: {
+  "Extreme - Your lock will propabply last a lot, lot longer with this!": {
     nothing: 100,
     double: 10,
     invert: 30,
     double_invert: 10,
     jackpot: 1,
   },
-  Sadistic: {
+  "Sadistic - Does it need further explaination?": {
     nothing: 50,
     double: 10,
     invert: 15,
@@ -88,39 +88,15 @@ Object.keys(weightAdjustments).forEach((difficulty) => {
   });
 });
 
-// Restlicher Code: Beispiel-UI, die die Konfiguration anzeigt
+// Restlicher Code: Beispiel-UI, die die Konfiguration anzeigt 
 export default function HomePage() {
-  const [difficulty, setDifficulty] = useState('Normal');
+  const [difficulty, setDifficulty] = useState('Normal - Medium chance of modifing a vote.');
   const [split, setSplit] = useState(50); // Standardwert 50%
   const [integerValue, setIntegerValue] = useState(0);
-  const [counter, setCounter] = useState(0);
-  const [loading, setLoading] = useState(false);
-
-  const handleButtonClick = async () => {
-    setLoading(true);
-    console.log("Clicked button")
-    try {
-      const response = await fetch((process.env.NEXT_PUBLIC_BACKEND_URL ?? 'http://localhost:3005') + '/api/incement', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          value: 5,
-          difficulty,
-          split,
-          integerValue,
-          config: configPresets[difficulty],
-        }),
-      });
-      if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json();
-      setCounter(data.counter);
-    } catch (error) {
-      console.error('Fehler beim Aufruf des Backends:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  const [onlyCountLoggedIn, setOnlyCountLoggedIn] = useState(true);
+  
+ 
+  
   const currentConfig = configPresets[difficulty];
 
   return (
@@ -128,33 +104,76 @@ export default function HomePage() {
       style={{
         padding: '1rem',
         borderRadius: 'var(--radius-large)',
-        backgroundColor: 'var(--color-bg-lightdark)',
+        //backgroundColor: 'var(--color-bg-lightdark)',
         maxWidth: '800px',
         margin: '1rem auto',
         color: 'var(--color-text)',
       }}
     >
-      <h1>Chaster Extension</h1>
+      <h1>Difficulty Setting</h1>
 
-      {/* Difficulty-Auswahl */}
-      <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="difficulty-select">Difficulty: </label>
-        <select
-          id="difficulty-select"
-          value={difficulty}
+{/* Difficulty-Auswahl als radiale Selektoren, vertikal gestapelt */}
+<div style={{ marginBottom: '1rem' }}>
+  <label htmlFor="radio-group" >
+    <p className="caption">
+      Difficulty settings that affect how the modifiers are weighted
+    </p>
+  </label>
+  <div className="radio-group">
+    {Object.keys(configPresets).map((level) => (
+      <label key={level} className="radio-label">
+        <input
+          type="radio"
+          name="difficulty"
+          value={level}
+          checked={difficulty === level}
           onChange={(e) => setDifficulty(e.target.value)}
-        >
-          {Object.keys(configPresets).map((level) => (
-            <option key={level} value={level}>
-              {level}
-            </option>
-          ))}
-        </select>
+          className="radio-input"
+        />
+        <span className="radio-custom"></span>
+        <span className="radio-text">{level}</span>
+      </label>
+    ))}
+  </div>
+</div>
+
+
+
+      <hr></hr>
+
+      {/* Integer-Eingabefeld */}
+      <div style={{ marginBottom: '0.3rem' }}>
+      <label htmlFor="integer-input" >
+        Number of visits required
+        <p className="caption">You will need to get a certain number of visitors before you can unlock your lock.  </p>
+      </label>
+        <input
+          type="number"
+          id="integer-input"
+          value={integerValue}
+          onChange={(e) => setIntegerValue(Number(e.target.value))}
+        />
+      </div>
+      
+      
+      {/* Checkmark-Eingabefeld */}
+      <div className="checkbox-wrapper" >
+        <input
+          type="checkbox"
+          id="only-logged-in"
+          checked={onlyCountLoggedIn}
+          onChange={(e) => setOnlyCountLoggedIn(e.target.checked)}
+        />
+        <label htmlFor="only-logged-in" className="checkbox-label" >Only count votes from logged-in people.</label>
+
       </div>
 
+      <hr></hr>
+
       {/* Slider für Split */}
-      <div style={{ marginBottom: '1rem' }} className="subtext">
-        <label htmlFor="split-slider">Split ({split}%): </label>
+      <div style={{ marginBottom: '1rem' }}>
+        <p>Modifier Split</p>
+        <label htmlFor="split-slider" className="subtext">The split will determine how many votes you'll need to aquire before the lock gets unfrozen. ({split}%): </label>
         <input
           type="range"
           id="split-slider"
@@ -165,27 +184,12 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Integer-Eingabefeld */}
-      <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="integer-input">Integer Value: </label>
-        <input
-          type="number"
-          id="integer-input"
-          value={integerValue}
-          onChange={(e) => setIntegerValue(Number(e.target.value))}
-        />
-      </div>
+      {/*Horizontale Trennlinie */}
+      <hr></hr>
 
-      {/* Button und Backend-Counter */}
-      <div style={{ margin: '1rem 0', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <button className="btn-primary" onClick={handleButtonClick} disabled={loading}>
-          {loading ? 'Processing...' : 'Submit'}
-        </button>
-        <span style={{ fontSize: '1.5rem' }}>Backend Counter: {counter}</span>
-      </div>
 
       {/* Aktuelle Konfigurationsparameter anzeigen */}
-      <section style={{ marginTop: '2rem' }}>
+      {/* <section style={{ marginTop: '2rem' }}> 
         <h2>Aktuelle Konfigurationsparameter ({difficulty}):</h2>
         <p>Split: {split}%</p>
         <p>Integer Input: {integerValue}</p>
@@ -216,7 +220,7 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </section> */}
     </main>
   );
 }
