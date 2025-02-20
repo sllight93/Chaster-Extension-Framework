@@ -1,3 +1,38 @@
+# Chaster Extension Framework - Backend
+
+<p align="center">
+  <a href="https://github.com/degenerate/Chaster-Extension-Framework" target="blank">
+    <img src="https://example.com/chaster-logo.svg" width="120" alt="Chaster Extension Framework Logo" />
+  </a>
+</p>
+
+A modular backend service built with [NestJS](https://nestjs.com/) for managing and processing extensions for the Chaster platform.
+
+## Overview
+
+The Chaster Extension Framework backend provides a robust API for:
+- Configuring extension settings.
+- Handling lock-related operations.
+- Processing logs and scheduled actions.
+- Integrating with the PartnerExtensionsApi.
+
+It is built with NestJS and TypeScript and includes both interactive API documentation (via Swagger) and code documentation generated with Compodoc.
+
+## Features
+
+- **REST API** implementation with NestJS.
+- **Interactive API docs** powered by Swagger.
+- **Detailed logging** for production and debugging.
+- **Extensible architecture** for easy integration of new extension features.
+
+## Setup
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/degenerate/Chaster-Extension-Framework.git
+   ```
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

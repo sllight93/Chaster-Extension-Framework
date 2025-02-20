@@ -2,17 +2,32 @@
 
 import { PartnerExtensionsApi, PartnerCustomLogActionDto, ActionLogRoleEnum } from '@chasterapp/chaster-js';
 import { getSessionAuthData } from '../utils/sessionUtils';
+import { Logger } from '@nestjs/common';
 
 const partnerExtensionsApi = new PartnerExtensionsApi();
+const logger = new Logger('LogUtils');
+
 /**
  * Erstellt einen Logeintrag.
+ *
+ * Ermittelt die Session-Informationen anhand des übergebenen Tokens, erstellt einen Logeintrag 
+ * und übermittelt diesen an die PartnerExtensionsApi.
+ *
  * @param token - Das Authentifizierungs-Token, das zur Ermittlung der Session verwendet wird.
- * @param logData - Die Dauer des Pillory-Locks.
- *  * @param title - Der Grund für den Pillory-Lock.
- *  * @param description - Der Grund für den Pillory-Lock.
- *  * @param icon - The FontAwesome icon, without the `fa-` prefix.  The icon must be part of the FontAwesome v5 regular icons: https://fontawesome.com/v5/search?o=r&s=regular
- *  * @param color - Die Farbe des Logeintrags.
- * @returns Ein Objekt mit Erfolgsmeldung und Session-Informationen.
+ * @param logData - Ein Objekt mit folgenden Eigenschaften:
+ *   - title: Der Titel des Logeintrags.
+ *   - description: Die Beschreibung des Logeintrags.
+ *   - icon: (Optional) Das FontAwesome-Icon bezogen auf v5 (ohne den `fa-` Prefix). Siehe https://fontawesome.com/v5/search?o=r&s=regular.
+ *   - color: (Optional) Die Farbe des Logeintrags.
+ * @returns Ein Promise, das bei Erfolg erfüllt wird; bei einem Fehler wird ein entsprechender Fehler geworfen.
+ *
+ * @example
+ * const result = await createLogEntry('sessionToken123', {
+ *   title: 'Aktion durchgeführt',
+ *   description: 'Die Aktion wurde erfolgreich durchgeführt.',
+ *   icon: 'info-circle',
+ *   color: '#FF0000'
+ * });
  */
 export async function createLogEntry(
   token: string,
@@ -23,13 +38,13 @@ export async function createLogEntry(
   }
 
   const sessionInfo = await getSessionAuthData(token);
-
+  logger.debug(`Ermittelte SessionInfo: ${JSON.stringify(sessionInfo)}`);
 
   const logEntry: PartnerCustomLogActionDto = {
     title: logData.title,
     description: logData.description,
-    role: ActionLogRoleEnum.Extension, 
-    icon: logData.icon as any, 
+    role: ActionLogRoleEnum.Extension,
+    icon: logData.icon as any,
     color: logData.color ?? null,
   };
 
@@ -37,8 +52,9 @@ export async function createLogEntry(
     await partnerExtensionsApi.logCustomAction(sessionInfo.sessionId, logEntry, {
       headers: { Authorization: `Bearer ${sessionInfo.apiKey}` },
     });
+    logger.debug(`Logeintrag erfolgreich erstellt für Session ${sessionInfo.sessionId}`);
   } catch (error) {
-    console.error('Fehler beim Erstellen des Log-Eintrags:', error);
+    logger.error('Fehler beim Erstellen des Log-Eintrags:', error.stack);
     throw new Error('Log konnte nicht erstellt werden');
   }
 }

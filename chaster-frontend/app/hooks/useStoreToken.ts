@@ -11,7 +11,8 @@ export default function useStoreToken(): string | null {
       try {
         const parsed = JSON.parse(decodeURIComponent(hash));
         const extractedToken = parsed.mainToken;
-        setToken(extractedToken);
+        const configurationToken = parsed.partnerConfigurationToken;
+        setToken(extractedToken || configurationToken);
 
       } catch (error) {
         console.error("Error storing token:", error);
