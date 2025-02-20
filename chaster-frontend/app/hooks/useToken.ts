@@ -1,8 +1,6 @@
-// chaster-frontend/app/hooks/useStoreToken.ts
-
 import { useEffect, useState } from "react";
 
-export default function useStoreToken(): string | null {
+export default function useToken(): string | null {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {

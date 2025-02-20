@@ -15,8 +15,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="de">
       <head>
+        {/* Chaster default font */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500&display=swap"
           rel="stylesheet"
         />
         {/* FontAwesome Regular */}

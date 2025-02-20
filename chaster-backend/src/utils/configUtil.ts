@@ -28,10 +28,39 @@ function stripConfig(session: any): SetConfigDto {
     punish_mult: session.config?.punish_mult,
   };
 
+  const allowedLock = {
+    keyholder: {
+      username: session.lock?.keyholder?.username,
+      avatarUrl: session.lock?.keyholder?.avatarUrl,
+      online: session.lock?.keyholder?.online,
+    },
+    user: {
+      username: session.lock?.user?.username,
+      avatarUrl: session.lock?.user?.avatarUrl,
+      online: session.lock?.user?.online,
+    },
+    _id: session.lock?._id,
+    status: session.lock?.status,
+    canBeUnlocked: session.lock?.canBeUnlocked,
+    totalDuration: session.lock?.totalDuration,
+    hideTimeLogs: session.lock?.hideTimeLogs,
+    isAllowedToViewTimeLogs: session.lock?.isAllowedToViewTimeLogs,
+    isFrozen: session.lock?.isFrozen,
+    frozenAt: session.lock?.frozenAt,
+    startDate: session.lock?.startDate,
+    endDate: session.lock?.endDate,
+    displayRemainingTime: session.lock?.displayRemainingTime,
+    title: session.lock?.title,
+    lastVerificationPicture: session.lock?.lastVerificationPicture,
+    extensionAllowUnlocking: session.lock?.extensionAllowUnlocking,
+  };
+
   return {
     config: allowedConfig,
     metadata: session.metadata || {},
     data: session.data || {},
+    // Das lock-Objekt wird nicht gestript und steht somit für die Anzeige bereit.
+    lock: allowedLock,
   };
 }
 

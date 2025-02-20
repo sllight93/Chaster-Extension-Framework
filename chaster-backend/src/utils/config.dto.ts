@@ -1,15 +1,18 @@
 /**
  * DTO für die Konfiguration.
- *
- * Diese Schnittstelle definiert die Struktur der Konfiguration, die vom System erwartet wird.
+ * 
+ * Enthält die eigentlichen Konfigurationseinstellungen unter `config`, sowie
+ * zusätzliche Metadaten (`metadata`), weitere Daten (`data`) und Sperrinformationen (`lock`).
  */
 export interface SetConfigDto {
   /**
    * Konfigurationseinstellungen.
+   * Hier werden die wesentlichen Einstellungen gespeichert, die unter anderem die Schwierigkeit, das Stimmenziel,
+   * ob nur angemeldete User gezählt werden, die Aufteilung, das tägliche Kontingent und den Strafmultiplikator umfassen.
    */
   config: {
     /**
-     * Eine Liste von Difficulty-Objekten, die die Schwierigkeit definieren.
+     * Schwierigkeitsgrade, die als Array von DifficultyDto definiert sind.
      */
     difficulty: DifficultyDto[];
     /**
@@ -17,19 +20,19 @@ export interface SetConfigDto {
      */
     votes_target: number;
     /**
-     * Gibt an, ob nur für eingeloggte Benutzer gezählt wird.
+     * Gibt an, ob nur für angemeldete User Stimmen gezählt werden.
      */
     count_only_loggedin: boolean;
     /**
-     * Anteil der Verteilung.
+     * Aufteilung der Konfiguration (konkrete Bedeutung eventuell projektspezifisch).
      */
     split: number;
     /**
-     * Tägliches Kontingent.
+     * Das tägliche Stimm-Kontingent.
      */
     daily_quota: number;
     /**
-     * Strafmultiplikator.
+     * Multiplikator für Strafpunkte.
      */
     punish_mult: number;
   };
@@ -38,41 +41,26 @@ export interface SetConfigDto {
    */
   metadata: {
     /**
-     * Gründe, die ein Unlock verhindern.
+     * Eine Liste von Gründen, die das Entsperren verhindern.
      */
     reasonsPreventingUnlocking: string[];
     /**
-     * Eine Liste von Aktionen, die auf der Homepage angezeigt werden können.
+     * Aktionen für die Startseite.
      */
     homeActions: Array<{
-      /**
-       * Eindeutiger Identifikator der Aktion.
-       */
       slug: string;
-      /**
-       * Titel der Aktion.
-       */
       title: string;
-      /**
-       * Beschreibung der Aktion.
-       */
       description: string;
-      /**
-       * Icon zur Darstellung der Aktion.
-       */
       icon: string;
-      /**
-       * Optionales Badge zur Hervorhebung.
-       */
       badge?: string;
     }>;
   };
   /**
-   * Daten, die zusätzlich zur Konfiguration gespeichert werden.
+   * Zusätzliche Daten.
    */
   data: {
     /**
-     * Informationen zu den Stimmen.
+     * Informationen zu den abgegebenen Stimmen.
      */
     votes: {
       /**
@@ -88,6 +76,32 @@ export interface SetConfigDto {
        */
       today: number;
     };
+  };
+  lock?: {
+    keyholder?: {
+      username?: string;
+      avatarUrl?: string;
+      online?: boolean;
+    };
+    user?: {
+      username?: string;
+      avatarUrl?: string;
+      online?: boolean;
+    };
+    _id?: string;
+    status?: string;
+    canBeUnlocked?: boolean;
+    totalDuration?: number;
+    hideTimeLogs?: boolean;
+    isAllowedToViewTimeLogs?: boolean;
+    isFrozen?: boolean;
+    frozenAt?: string; // oder Date, je nach Gebrauch
+    startDate?: Date; // oder Date
+    endDate?: Date; // oder Date
+    displayRemainingTime?: boolean;
+    title?: string;
+    lastVerificationPicture?: string;
+    extensionAllowUnlocking?: boolean;
   };
 }
 

@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 interface CountdownProps {
-  timeString: string; // Format "DD:HH:MM:SS"
+  targetDate: Date; // Das Zieldatum, bis zu dem heruntergezählt werden soll
   isFrozen?: boolean;
 }
 
-// Hilfsfunktion: Konvertiere den Zeitstring in Sekunden
-function convertTimeStringToSeconds(time: string): number {
-  const parts = time.split(":").map(Number);
-  if (parts.length !== 4) return 0;
-  const [dd, hh, mm, ss] = parts;
-  return dd * 86400 + hh * 3600 + mm * 60 + ss;
-}
-
-// Hilfsfunktion: Formatiere Sekunden zurück in [DD, HH, MM, SS] als jeweils zweistellige Strings
+// Formatiere die Sekunden in [DD, HH, MM, SS] als jeweils zweistellige Strings
 function formatSeconds(seconds: number): [string, string, string, string] {
   const dd = Math.floor(seconds / 86400);
   seconds %= 86400;
@@ -21,28 +13,33 @@ function formatSeconds(seconds: number): [string, string, string, string] {
   seconds %= 3600;
   const mm = Math.floor(seconds / 60);
   const ss = seconds % 60;
-  // Funktion zum Auffüllen mit führender Null
+  // Führende Nullen auffüllen
   const pad = (n: number) => n.toString().padStart(2, "0");
   return [pad(dd), pad(hh), pad(mm), pad(ss)];
 }
 
-export default function Countdown({ timeString, isFrozen = false }: CountdownProps) {
-  const initialSeconds = convertTimeStringToSeconds(timeString);
-  const [remaining, setRemaining] = useState(initialSeconds);
+export default function Countdown({ targetDate, isFrozen = false }: CountdownProps) {
+  // Berechne die anfängliche verbleibende Zeit in Sekunden
+  const calculateRemaining = () => {
+    const now = Date.now();
+    const difference = new Date(targetDate).getTime() - now;
+    return Math.max(Math.floor(difference / 1000), 0);
+  };
+
+  const [remaining, setRemaining] = useState<number>(calculateRemaining());
 
   useEffect(() => {
     if (isFrozen) return; // Wenn gesperrt, starte keinen Timer
     const interval = setInterval(() => {
-      setRemaining((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
+      const newRemaining = calculateRemaining();
+      setRemaining(newRemaining);
+      if (newRemaining <= 0) {
+        clearInterval(interval);
+      }
     }, 1000);
+
     return () => clearInterval(interval);
-  }, [isFrozen]);
+  }, [targetDate, isFrozen]);
 
   const [d, h, m, s] = formatSeconds(remaining);
   const parts = [d, h, m, s];

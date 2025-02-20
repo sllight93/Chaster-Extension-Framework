@@ -1,56 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import useStoreToken from "./../hooks/useStoreToken";
-import { useConfig }from "./../hooks/useConfig";
+import useToken from "../hooks/useToken";
+import { useConfig } from "../hooks/useConfig";
+import { InitConfigDto } from "../hooks/config.dto";
 
-const exampleConf ={
-  "config": {
-    "difficulty": [
-      { "type": "invert", "weight": 20 },
-      { "type": "double", "weight": 20 },
-      { "type": "double_invert", "weight": 35 },
-      { "type": "jackpot", "weight": 1 },
-      { "type": "nothing", "weight": 320 }
-    ],
-    "votes_target": 300,
-    "count_only_loggedin": true,
-    "split": 50,
-    "daily_quota": 20,
-    "punish_mult": 1.00
-  },
-  "metadata": {
-    "reasonsPreventingUnlocking": [
-      "Not enough votes collected. Get more shared link votes to unlock!"
-    ],
-    "homeActions": [
-      {
-        "slug": "notEnoughVotesQuota",
-        "title": "Daily quota not reached!",
-        "description": "Let people vote for your lock to prevent punishment!",
-        "icon": "fa-link",
-        "badge": "20"
-      }
-    ]
-  },
-  "data": {
-    "votes": {
-        "total": 0,
-        "eligible": 0,
-        "today": 0
-    }
-  }
-}
-
-
-
-type Config = {
+type DifficultySetting = {
   weight: number;
   title: string;
   description: string;
 };
-// Basis-Konfiguration (Normal) – Texte und Titel bleiben hier gleich
-const baseConfig: Record<string, Config> = {
+
+const baseDifficulty: Record<string, DifficultySetting> = {
   nothing: {
     weight: 320,
     title: "nothing",
@@ -77,7 +38,7 @@ const baseConfig: Record<string, Config> = {
     description: "Super critical vote by [username]! It count's 10 times!",
   },
 };
-// Nur die Gewichtsanpassungen pro Difficulty
+
 const weightAdjustments: Record<string, Record<string, number>> = {
   "Easy": {
     nothing: 500,
@@ -115,23 +76,31 @@ const weightAdjustments: Record<string, Record<string, number>> = {
     jackpot: 2,
   },
 };
-// Erstelle die vollständigen Konfigurations-Presets, indem du die Basis-Konfiguration mit den Gewichtsanpassungen zusammenführst.
-const configPresets: Record<string, Record<string, Config>> = {};
+
+const configPresets: Record<string, Record<string, DifficultySetting>> = {};
 Object.keys(weightAdjustments).forEach((difficulty) => {
   configPresets[difficulty] = {};
-  Object.keys(baseConfig).forEach((key) => {
+  Object.keys(baseDifficulty).forEach((key) => {
     configPresets[difficulty][key] = {
-      ...baseConfig[key],
+      ...baseDifficulty[key],
       weight: weightAdjustments[difficulty][key],
     };
   });
 });
 
-// Restlicher Code: Beispiel-UI, die die Konfiguration anzeigt 
 export default function HomePage() {
-  
+  // Send a message to the Chaster modal to tell it that your configuration page supports the save capability
+  useEffect(() => {
+    window.parent.postMessage(
+      JSON.stringify({
+        type: "partner_configuration",
+        event: "capabilities",
+        payload: { features: { save: true } },
+      }),
+      "*"
+    );
+  }, []);
 
-  const [isTokenLoaded, setIsTokenLoaded] = useState(false);
   const [difficulty, setDifficulty] = useState('Normal');
   const [split, setSplit] = useState(50); 
   const [visitsRequired, setVisitsRequired] = useState(0);
@@ -140,55 +109,108 @@ export default function HomePage() {
   const [onlyCountLoggedIn, setOnlyCountLoggedIn] = useState(true);
   
   // Extract mainToken from hash & send to backend
-  const token = useStoreToken();
-  const currentConfig = configPresets[difficulty];
-  const { config, loading, error, loadConfig, saveConfig } = useConfig(token!);
+  const token = useToken();
+  const { loadConfig } = useConfig(token!);
+  const [data, setData] = useState<InitConfigDto>();
 
-  //Check if Token is set
-    useEffect(() => {
-      if (token) {
-        setIsTokenLoaded(true);
+  useEffect(() => {
+    if (!token) return;
+    loadConfig().then((configData) => {
+      if (configData) {
+        setData(configData);
+      } else {
+        console.error("Geladene Konfiguration entspricht nicht dem erwarteten Schema.", configData);
       }
-    }, [token]);
-    
-    const handleButtonClick = async () => {
-      if (!isTokenLoaded || !token) {
-        console.error("❌ Token nicht verfügbar. Warte auf Initialisierung...");
+    });
+  }, [token, loadConfig]);
+
+  // Event Listener for events coming from Chaster
+  useEffect(() => {
+    const handleMessage = async (e: MessageEvent) => {
+      if (typeof e.data !== "string") return;
+      let message;
+      try {
+        message = JSON.parse(e.data);
+      } catch (err) {
+        console.error("Fehler beim Parsen der Nachricht:", err);
         return;
       }
-      try {
-        // Nutze saveConfig aus dem Hook, um die Konfiguration zu speichern
-        await saveConfig(exampleConf);
-        console.log("Konfiguration erfolgreich gespeichert.");
-      } catch (err) {
-        console.error("Fehler beim Speichern der Konfiguration:", err);
+
+      const { type, event } = message;
+      if (type === "chaster" && event === "partner_configuration_save") {
+        // Zeige einen Spinner im Modal an
+        window.parent.postMessage(
+          JSON.stringify({ type: "partner_configuration", event: "save_loading" }),
+          "*"
+        );
+
+        // Erstelle die Konfiguration aus den aktuellen States
+        const configuration = JSON.stringify({
+          config: {
+            difficulty: configPresets[difficulty] // Umwandlung in Array aus DifficultyDto
+              ? Object.values(configPresets[difficulty]).map(
+                  (setting): { type: string; weight: number } => ({
+                    type: setting.title,
+                    weight: setting.weight,
+                  })
+                )
+              : [],
+            votes_target: visitsRequired,
+            count_only_loggedin: onlyCountLoggedIn,
+            split: split,
+            daily_quota: dailyQuota,
+            punish_mult: punishMult,
+          },
+        });
+
+        // Benutze den Token als configurationToken (anpassen, falls ein anderer Wert genutzt wird)
+        const configurationToken = token;
+
+        try {
+          await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/configuration/${configurationToken}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: configuration,
+          });
+          // Schließe das Modal via Save-Success Event
+          window.parent.postMessage(
+            JSON.stringify({ type: "partner_configuration", event: "save_success" }),
+            "*"
+          );
+        } catch (err: any) {
+          // Stoppe den Spinner auf dem Modal, da ein Fehler aufgetreten ist
+          window.parent.postMessage(
+            JSON.stringify({ type: "partner_configuration", event: "save_failed" }),
+            "*"
+          );
+          // Fehlerbehandlung im Konfigurationsfenster
+          console.error("Fehler beim Speichern der Konfiguration:", err.message);
+        }
       }
     };
 
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [difficulty, split, visitsRequired, dailyQuota, punishMult, onlyCountLoggedIn, token]);
 
-  //HTML Page
+  // HTML Page
   return (
     <main
       style={{
         padding: '1rem',
         borderRadius: 'var(--radius-large)',
-        //backgroundColor: 'var(--color-bg-lightdark)',
         maxWidth: '800px',
         margin: '1rem auto',
         color: 'var(--color-text)',
       }}
     >
-      <hr></hr>
+      <hr />
       <h1>Difficulty Setting</h1>
       <label htmlFor="radio-group">
-        <p className="caption">
-          Affect how the modifiers are weighted
-        </p>
+        <p className="caption">Affect how the modifiers are weighted</p>
       </label>
-      {/* Difficulty-Auswahl als radiale Selektoren, vertikal gestapelt */}
       <div style={{ display: 'flex', gap: '1rem' }}>
         <div style={{ flex: 1 }}>
-          {/* Hier kannst du dein erstes Element einfügen */}
           <div className="radio-group">
             {Object.keys(configPresets).map((level) => (
               <label key={level} className="radio-label">
@@ -207,7 +229,6 @@ export default function HomePage() {
           </div>
         </div>
         <div style={{ flex: 1 }}>
-          {/* Hier kannst du dein zweites Element einfügen */}
           <div
             className="forma-grid"
             style={{
@@ -246,13 +267,12 @@ export default function HomePage() {
         </div>
       </div>
 
-      <hr></hr>
+      <hr />
 
-      {/* Integer-Eingabefeld */}
       <div style={{ marginBottom: '0.3rem' }}>
-        <label htmlFor="integer-input" >
+        <label htmlFor="integer-input">
           Number of visits required
-          <p className="caption">You will need to get a certain number of visitors before you can unlock your lock.  </p>
+          <p className="caption">You will need to get a certain number of visitors before you can unlock your lock.</p>
         </label>
         <input
           type="number"
@@ -262,23 +282,23 @@ export default function HomePage() {
         />
       </div>
             
-      {/* Checkmark-Eingabefeld */}
-      <div className="checkbox-wrapper" >
+      <div className="checkbox-wrapper">
         <input
           type="checkbox"
           id="only-logged-in"
           checked={onlyCountLoggedIn}
           onChange={(e) => setOnlyCountLoggedIn(e.target.checked)}
         />
-        <label htmlFor="only-logged-in" className="checkbox-label" >Only count votes from logged-in people.</label>
+        <label htmlFor="only-logged-in" className="checkbox-label">Only count votes from logged-in people.</label>
       </div>
 
-      <hr></hr>
+      <hr />
 
-      {/* Slider für Split */}
       <div style={{ marginBottom: '1rem' }}>
         <p>Modifier Split</p>
-        <label htmlFor="split-slider" className="subtext">The split will determine how many votes you'll need to aquire before the lock gets unfrozen. ({split}%): </label>
+        <label htmlFor="split-slider" className="subtext">
+          The split will determine how many votes you'll need to acquire before the lock gets unfrozen. ({split}%):
+        </label>
         <input
           type="range"
           id="split-slider"
@@ -289,9 +309,8 @@ export default function HomePage() {
         />
       </div>
 
-
-      <button className="btn-primary" onClick={handleButtonClick} disabled={!isTokenLoaded}>
-          {isTokenLoaded ? "Submit" : "Lade Token..."}
+      <button className="btn-primary" onClick={() => { /* weitere Logik z.B. zum Speichern per Button */ }} disabled={!token}>
+          {token ? "Submit" : "Lade Token..."}
       </button>
     </main>
   );

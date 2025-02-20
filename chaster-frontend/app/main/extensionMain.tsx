@@ -1,14 +1,15 @@
 import React from "react";
+import { GetConfigDto } from '../hooks/config.dto';
 
 interface DataProps {
-  data: any;
+  extData: GetConfigDto;
 }
 
-export default function ExtensionMain({ data }: DataProps) {
-  const votesToday = data.sampleConf.data.votes.today;
-  const dailyQuota = data.sampleConf.config.daily_quota;
+export default function ExtensionMain({ extData }: DataProps) {
+  const votesToday = extData.data.votes.today;
+  const dailyQuota = extData.config.daily_quota;
   const progressPercentage = Math.round((votesToday / dailyQuota) * 100);
-  const linkUrl = data.sampleConf.link || "https://example.com";
+  const linkUrl = "https://chaster.app/sharelink/abc123";
 
   return (
     <div>
