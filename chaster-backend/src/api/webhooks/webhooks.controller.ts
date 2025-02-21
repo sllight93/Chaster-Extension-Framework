@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Headers, Logger, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
-//import { BasicAuthGuard } from '../../guards/basic-auth.guard';
+import { handleEvent } from '../../utils/eventUtils';
+import { EventDto } from '../../schema/config.dto';
 
 @ApiTags('webhooks')
 @Controller('api/webhooks')
@@ -37,7 +38,8 @@ export class WebhooksController {
     this.logger.log(`Webhook received with headers: ${JSON.stringify(headers)}`);
     this.logger.log(`Payload: ${JSON.stringify(payload)}`);
     
-    // Hier kannst du zusätzliche Validierungen und Verarbeitung durchführen
+    // Verarbeite das Event
+    handleEvent(payload);
 
     return { status: 'received' };
   }

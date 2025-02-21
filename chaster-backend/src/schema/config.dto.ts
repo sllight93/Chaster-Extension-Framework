@@ -65,3 +65,19 @@ export interface ConfigApiResponseDto {
   
 }
 
+/**
+ * DTO für ein Event.
+ * Diese Schnittstelle definiert die Struktur eines Events, das vom System erwartet wird.
+ */
+export interface EventDto {
+  /**
+   * Der Name des Events.
+   */
+  event: string;
+  sentAt: string;
+  requestId: string;
+  /**
+   * Die Daten, die mit dem Event übermittelt werden.
+   */
+  data: Record<string, any>;
+}
