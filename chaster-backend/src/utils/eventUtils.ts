@@ -79,6 +79,48 @@ function handleActionLogCreated(data: ActionLogCreated) {
     case 'link_time_changed':
       console.log('Handling link_time_changed event with data:', actionLog);
       break;
+    case 'dice_rolled':
+      console.log('Handling dice_rolled event with data:', actionLog);
+      break;
+    case 'timer_guessed':
+      console.log('Handling timer_guessed event with data:', actionLog);
+      break;
+    case 'pillory_in':
+      console.log('Handling pillory_in event with data:', actionLog);
+      break;
+    case 'pillory_out':
+      console.log('Handling pillory_out event with data:', actionLog);
+      break;
+    case 'random_event':
+      console.log('Handling random_event event with data:', actionLog);
+      break;
+    case 'tasks_task_assigned':
+      console.log('Handling tasks_task_assigned event with data:', actionLog);
+      break;
+    case 'tasks_vote_ended':
+      console.log('Handling tasks_vote_ended event with data:', actionLog);
+      break;
+    case 'tasks_task_completed':
+      console.log('Handling tasks_task_completed event with data:', actionLog);
+      break;
+    case 'tasks_task_failed':
+      console.log('Handling tasks_task_failed event with data:', actionLog);
+      break;
+    case 'temporary_opening_opened':
+      console.log('Handling temporary_opening_opened event with data:', actionLog);
+      break;
+    case 'temporary_opening_locked':
+      console.log('Handling temporary_opening_locked event with data:', actionLog);
+      break;
+    case 'temporary_opening_locked_late':
+      console.log('Handling temporary_opening_locked_late event with data:', actionLog);
+      break;
+    case 'verification_picture_submitted':
+      console.log('Handling verification_picture_submitted event with data:', actionLog);
+      break;
+    case 'wheel_of_fortune_turned':
+      console.log('Handling wheel_of_fortune_turned event with data:', actionLog);
+      break;
     default:
       console.warn(`No handler found for action log type: ${actionLog.type}`);
   }
@@ -93,19 +135,10 @@ export function handleEvent(event: EventDto) {
   }
 }
 
-
-
-
 function handleLinkVote(event) {
 
     const time = event.data.actionLog.payload.duration;
     const username = event.data.actionLog.user.username;
-
-
-
-
-
-
 
 }
 
