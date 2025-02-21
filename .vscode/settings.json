@@ -2,5 +2,6 @@
     "vs-browser.autoCompleteUrl": "https://",
     "workbench.externalBrowser": "chrome",
     "editor.defaultFoldingRangeProvider": null,
-    "vs-browser.reload.onSave": true
+    "vs-browser.reload.onSave": true,
+    "terminal.integrated.gpuAcceleration": "on"
 }

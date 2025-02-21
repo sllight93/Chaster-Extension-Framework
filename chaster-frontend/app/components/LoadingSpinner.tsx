@@ -1,20 +1,14 @@
 "use client";
 
+import React from "react";
+import "./LoadingSpinner.sass";
+
 export default function LoadingSpinner() {
   return (
-    <div
-      style={{
-        padding: "1rem",
-        borderRadius: "var(--radius-large)",
-        backgroundColor: "var(--color-bg)",
-        maxWidth: "800px",
-        margin: "1rem auto",
-        textAlign: "center",
-      }}
-    >
-      <div style={{ color: "var(--color-accent)" }} className="flex flex-col items-center justify-center space-y-4 py-8">
+    <div className="loading-spinner">
+      <div className="spinner-content">
         <svg
-          className="animate-spin h-12 w-12 text-indigo-500"
+          className="spinner-icon"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

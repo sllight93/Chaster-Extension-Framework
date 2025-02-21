@@ -142,26 +142,13 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#getConfig" >getConfig</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#setConfig" >setConfig</a>
-                            </li>
-                            <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier">Async</span>
-                                <a href="#updateConfig" >updateConfig</a>
                             </li>
                         </ul>
                     </td>
@@ -187,8 +174,6 @@
                     <a name="getConfig"></a>
                     <span class="name">
                             <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>getConfig</b></span>
                         <a href="#getConfig"><span class="icon ion-ios-link"></span></a>
@@ -198,7 +183,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getConfig(sessionToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getConfig(configToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -206,14 +191,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;:sessionToken&#x27;)<br />@ApiOperation({summary: &#x27;Liefert die aktuelle Konfiguration&#x27;, description: &#x27;Dieses Endpoint gibt die aktuelle Konfiguration der angegebenen Session zurück.&#x27;})<br />@ApiResponse({status: 200, description: &#x27;Erfolgreiche Antwort&#x27;, schema: undefined})<br /></code>
+                    <code>@Get(&#x27;:configToken&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">src/api/config/config.controller.ts:41</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">src/api/config/config.controller.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -221,7 +206,7 @@
             <tr>
                 <td class="col-md-4">
                         <div class="io-description"><p>Ruft die aktuelle Konfiguration für die angegebene Session ab.
-GET /config/:sessionToken</p>
+GET /config/:configToken</p>
 </div>
 
                             <div class="io-description">
@@ -237,7 +222,7 @@ GET /config/:sessionToken</p>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>sessionToken</td>
+                                                <td>configToken</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -269,9 +254,6 @@ GET /config/:sessionToken</p>
                     <a name="setConfig"></a>
                     <span class="name">
                             <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>setConfig</b></span>
                         <a href="#setConfig"><span class="icon ion-ios-link"></span></a>
@@ -281,7 +263,7 @@ GET /config/:sessionToken</p>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>setConfig(sessionToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, config: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    <code>setConfig(configToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, config: <a href="../interfaces/NestedConfigDto.html" target="_self">NestedConfigDto</a>)</code>
                 </td>
             </tr>
 
@@ -289,23 +271,22 @@ GET /config/:sessionToken</p>
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post(&#x27;:sessionToken&#x27;)<br />@ApiOperation({summary: &#x27;Setzt die vollständige Konfiguration&#x27;, description: &#x27;Ersetzt die komplette vorhandene Konfiguration mit dem übergebenen Objekt.&#x27;})<br />@ApiBody({description: &#x27;Das vollständige Konfigurationsobjekt&#x27;, schema: undefined})<br />@ApiResponse({status: 200, description: &#x27;Configuration set successfully&#x27;})<br /></code>
+                    <code>@Put(&#x27;:configToken&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="71"
-                                    class="link-to-prism">src/api/config/config.controller.ts:71</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/api/config/config.controller.ts:32</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Setzt die vollständige Konfiguration für die angegebene Session.
-POST /config/:sessionToken
-Erwartet im Body das vollständige Konfigurationsobjekt.</p>
+                        <div class="io-description"><p>Aktualisiert die Konfiguration für die angegebene Session.
+PUT /config/:configToken</p>
 </div>
 
                             <div class="io-description">
@@ -321,7 +302,7 @@ Erwartet im Body das vollständige Konfigurationsobjekt.</p>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>sessionToken</td>
+                                                <td>configToken</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -335,104 +316,7 @@ Erwartet im Body das vollständige Konfigurationsobjekt.</p>
                                         <tr>
                                                 <td>config</td>
                                             <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="updateConfig"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier">Async</span>
-                        <span ><b>updateConfig</b></span>
-                        <a href="#updateConfig"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateConfig(sessionToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, newConfig: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Patch(&#x27;:sessionToken&#x27;)<br />@ApiOperation({summary: &#x27;Aktualisiert die Konfiguration&#x27;, description: &#x27;Nur die im Body angegebenen Felder werden in die bestehende Konfiguration integriert. (Shallow-Merge)&#x27;})<br />@ApiBody({description: &#x27;Teilweise Konfigurationsänderungen&#x27;, schema: undefined})<br />@ApiResponse({status: 200, description: &#x27;Configuration updated successfully&#x27;})<br /></code>
-                </td>
-            </tr>
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="97"
-                                    class="link-to-prism">src/api/config/config.controller.ts:97</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Aktualisiert (merged) die Konfiguration für die angegebene Session.
-PATCH /config/:sessionToken
-Erwartet im Body ein JSON-Objekt mit den Feldern, die aktualisiert werden sollen.
-Dabei werden die neuen Werte in die bestehende Konfiguration integriert, wobei vorhandene Felder überschrieben werden.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>sessionToken</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>newConfig</td>
-                                            <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                            <code><a href="../interfaces/NestedConfigDto.html" target="_self" >NestedConfigDto</a></code>
                                             </td>
 
                                             <td>
@@ -459,108 +343,45 @@ Dabei werden die neuen Werte in die bestehende Konfiguration integriert, wobei v
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Post, Patch, Param, Body } from &#x27;@nestjs/common&#x27;;
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from &#x27;@nestjs/swagger&#x27;;
-import { configGet, configSet, configUpdate } from &#x27;../../utils/configUtil&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Put, Param, Body, Logger } from &#x27;@nestjs/common&#x27;;
+import { ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { getConfig, setConfig } from &#x27;../../utils/configUtils&#x27;;
+import { ConfigDto } from &#x27;../../schema/config.dto&#x27;;
+
+interface NestedConfigDto {
+  config: ConfigDto;
+}
 
 @ApiTags(&#x27;config&#x27;)
 @Controller(&#x27;api/config&#x27;)
 export class ConfigController {
+  private readonly logger &#x3D; new Logger(ConfigController.name);
+
   /**
    * Ruft die aktuelle Konfiguration für die angegebene Session ab.
-   * GET /config/:sessionToken
+   * GET /config/:configToken
    */
-  @Get(&#x27;:sessionToken&#x27;)
-  @ApiOperation({ summary: &#x27;Liefert die aktuelle Konfiguration&#x27;, description: &#x27;Dieses Endpoint gibt die aktuelle Konfiguration der angegebenen Session zurück.&#x27; })
-  @ApiResponse({
-    status: 200,
-    description: &#x27;Erfolgreiche Antwort&#x27;,
-    schema: {
-      example: {
-        success: true,
-        config: {
-          config: {
-            difficulty: [
-              { type: &quot;nothin&quot;, weight: 320 },
-              { type: &quot;double&quot;, weight: 25 },
-              { type: &quot;invert&quot;, weight: 25 },
-              { type: &quot;double_invert&quot;, weight: 20 },
-              { type: &quot;jackpot&quot;, weight: 1 },
-            ],
-            votes_target: 300,
-            count_only_loggedin: true,
-            split: 50,
-            daily_quota: 20,
-            punish_mult: 1,
-          },
-          metadata: { /* beliebige Metadaten */ },
-          data: { /* beliebige Daten */ },
-        },
-      },
-    },
-  })
-  async getConfig(@Param(&#x27;sessionToken&#x27;) sessionToken: string): Promise&lt;any&gt; {
-    const config &#x3D; await configGet(sessionToken);
+  @Get(&#x27;:configToken&#x27;)
+  async getConfig(@Param(&#x27;configToken&#x27;) configToken: string): Promise&lt;any&gt; {
+    this.logger.debug(&#x60;GET config for token: ${configToken}&#x60;);
+    const config &#x3D; await getConfig(configToken);
+    this.logger.debug(&#x60;Retrieved config: ${JSON.stringify(config)}&#x60;);
     return { success: true, config };
   }
 
   /**
-   * Setzt die vollständige Konfiguration für die angegebene Session.
-   * POST /config/:sessionToken
-   * Erwartet im Body das vollständige Konfigurationsobjekt.
+   * Aktualisiert die Konfiguration für die angegebene Session.
+   * PUT /config/:configToken
    */
-  @Post(&#x27;:sessionToken&#x27;)
-  @ApiOperation({ summary: &#x27;Setzt die vollständige Konfiguration&#x27;, description: &#x27;Ersetzt die komplette vorhandene Konfiguration mit dem übergebenen Objekt.&#x27; })
-  @ApiBody({
-    description: &#x27;Das vollständige Konfigurationsobjekt&#x27;,
-    schema: {
-      example: {
-        config: {
-          difficulty: [&#x27;easy&#x27;, &#x27;medium&#x27;, &#x27;hard&#x27;],
-          votes_target: 300,
-          count_only_loggedin: true,
-          split: 50,
-          daily_quota: 20,
-          punish_mult: 1,
-        },
-        metadata: { anyKey: &#x27;anyValue&#x27; },
-        data: { anyKey: &#x27;anyValue&#x27; },
-      },
-    },
-  })
-  @ApiResponse({ status: 200, description: &#x27;Configuration set successfully&#x27; })
-  async setConfig(@Param(&#x27;sessionToken&#x27;) sessionToken: string, @Body() config: any): Promise&lt;any&gt; {
-    await configSet(sessionToken, config);
-    return { success: true, message: &#x27;Configuration set successfully&#x27; };
+  @Put(&#x27;:configToken&#x27;)
+  async setConfig(@Param(&#x27;configToken&#x27;) configToken: string, @Body() config: NestedConfigDto): Promise&lt;any&gt; {
+    this.logger.debug(&#x60;PUT config for token: ${configToken}&#x60;);
+    this.logger.debug(&#x60;Incoming config payload: ${JSON.stringify(config)}&#x60;);
+    const res &#x3D; await setConfig(configToken, config);
+    this.logger.debug(&#x60;Update result: ${JSON.stringify(res)}&#x60;);
+    return { success: true, res };
   }
-
-  /**
-   * Aktualisiert (merged) die Konfiguration für die angegebene Session.
-   * PATCH /config/:sessionToken
-   * Erwartet im Body ein JSON-Objekt mit den Feldern, die aktualisiert werden sollen.
-   * Dabei werden die neuen Werte in die bestehende Konfiguration integriert, wobei vorhandene Felder überschrieben werden.
-   */
-  @Patch(&#x27;:sessionToken&#x27;)
-  @ApiOperation({ summary: &#x27;Aktualisiert die Konfiguration&#x27;, description: &#x27;Nur die im Body angegebenen Felder werden in die bestehende Konfiguration integriert. (Shallow-Merge)&#x27; })
-  @ApiBody({
-    description: &#x27;Teilweise Konfigurationsänderungen&#x27;,
-    schema: {
-      example: {
-        config: {
-          votes_target: 350,
-        },
-        metadata: { updatedKey: &#x27;newValue&#x27; },
-        data: {},
-      },
-    },
-  })
-  @ApiResponse({ status: 200, description: &#x27;Configuration updated successfully&#x27; })
-  async updateConfig(@Param(&#x27;sessionToken&#x27;) sessionToken: string, @Body() newConfig: any): Promise&lt;any&gt; {
-    await configUpdate(sessionToken, newConfig);
-    return { success: true, message: &#x27;Configuration updated successfully&#x27; };
-  }
-}
-</code></pre>
+}</code></pre>
     </div>
 </div>
 

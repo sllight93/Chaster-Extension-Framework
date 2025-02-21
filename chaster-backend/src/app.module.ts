@@ -4,13 +4,15 @@ import { AppService } from './app.service';
 import { WebhooksModule } from './api/webhooks/webhooks.module';
 import { LockModule } from './api/lock/lock.module';
 import { ConfigModule } from './api/config/config.module';
+import { SessionModule } from './api/session/session.module';
 
 
 @Module({
   imports: [ 
     WebhooksModule,
     LockModule,
-    ConfigModule
+    ConfigModule,
+    SessionModule
   ],
   controllers: [
     AppController,

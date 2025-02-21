@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './Countdown.sass';
 
 interface CountdownProps {
   targetDate: Date; // Das Zieldatum, bis zu dem heruntergezählt werden soll

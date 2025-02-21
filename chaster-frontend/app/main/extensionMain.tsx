@@ -1,8 +1,8 @@
 import React from "react";
-import { GetConfigDto } from '../hooks/config.dto';
+import { PrivateSessionDto } from '../schemas/config.dto';
 
 interface DataProps {
-  extData: GetConfigDto;
+  extData: PrivateSessionDto;
 }
 
 export default function ExtensionMain({ extData }: DataProps) {

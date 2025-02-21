@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import useToken from "../hooks/useToken";
-import { useConfig } from "../hooks/useConfig";
-import { GetConfigDto } from "../hooks/config.dto";
+import { useSession } from "../hooks/useSession";
+import { PrivateSessionDto } from "../schemas/config.dto";
 
 import Countdown from "../components/Countdown";
 import Keyholder from "../components/Keyholder";
@@ -14,8 +14,8 @@ import ExtensionMain from "./extensionMain";
 
 export default function MainPage() {
   const token = useToken();
-  const { loadConfig } = useConfig(token!);
-  const [data, setData] = useState<GetConfigDto>();
+  const { loadSession } = useSession(token!);
+  const [data, setData] = useState<PrivateSessionDto>();
 
 
   function formatDuration(ms: number): string {
@@ -30,14 +30,14 @@ export default function MainPage() {
 
   useEffect(() => {
     if (!token) return;
-    loadConfig().then((configData) => {
-      if (configData) {
-        setData(configData);
+    loadSession().then((sessionData) => {
+      if (sessionData) {
+        setData(sessionData as PrivateSessionDto);
       } else {
-        console.error("Geladene Konfiguration entspricht nicht dem erwarteten Schema.", configData);
+        console.error("Geladene Konfiguration entspricht nicht dem erwarteten Schema.", sessionData);
       }
     });
-  }, [token, loadConfig]);
+  }, [token, loadSession]);
 
   // Warte, bis data geladen ist bevor der Hauptinhalt gerendert wird.
   if (!data) {
@@ -101,7 +101,7 @@ export default function MainPage() {
                 <div className="caption mb-3">You have 12 pending actions required until tomorrow.</div>
               </div>
               <div className="card-body">
-                <ExtensionMain extData={data as GetConfigDto} />
+                <ExtensionMain extData={data as PrivateSessionDto} />
               </div>
             </div>
           </div>

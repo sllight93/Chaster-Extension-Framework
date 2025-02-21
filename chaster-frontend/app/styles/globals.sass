@@ -24,7 +24,7 @@
   --color-text: #fff
   --color-text-light: #7e8297
   --color-text-superlight: #DDE7EE
-  --color-border: #444
+  --color-border: #aaa
   --color-bg-light: #525669
   --color-common-black: #0B0D0E
   // Abgerundete Ecken
@@ -60,53 +60,6 @@ label
   margin: 0 0 8px
   gap: 2px
 
-// Radio Group
-.radio-group
-  display: flex
-  flex-direction: column
-  gap: 0  // Abstand zwischen den Einträgen
-
-.radio-label
-  display: inline-flex
-  align-items: center
-  flex-direction: row
-  gap: 8px
-  margin-bottom: 0
-
-.radio-input
-  display: none
-
-.radio-custom
-  width: 16px
-  height: 16px
-  border: 1px solid var(--color-border, #fff)
-  border-radius: 50%
-  margin-right: 0.5rem
-  position: relative
-  transition: background-color 0.2s ease, border-color 0.2s ease
-
-.radio-custom::after
-  content: ""
-  position: absolute
-  top: 4px
-  left: 4px
-  width: 6px
-  height: 6px
-  border-radius: 50%
-  background-color: var(--color-text, #fff)
-  opacity: 0
-  transition: opacity 0.2s ease
-
-.radio-input:checked + .radio-custom
-  background-color: var(--color-accent, #6d7dd1)
-  border-color: var(--color-accent, #6d7dd1)
-
-.radio-input:checked + .radio-custom::after
-  opacity: 1
-
-.radio-text
-  font-size: 1rem
-  color: var(--color-text, #fff)
 
 // Checkbox
 .checkbox-label
@@ -303,32 +256,10 @@ input[type="text"]:focus
   box-shadow: 0 0 0 2px rgba(109, 125, 209, 0.25)
   outline: none
 
-// Range-Inputs (nur für Chrome)
-input[type="range"]
-  -webkit-appearance: none
-  width: 100%
-  background: transparent
+label
+  display: inline
 
-input[type="range"]::-webkit-slider-runnable-track
-  height: 8px
-  box-shadow: inset 0 2px rgba(0, 0, 0, 0.1)
-  background: var(--color-bg-light)
-  border-radius: 4px
-
-input[type="range"]::-webkit-slider-thumb
-  -webkit-appearance: none
-  margin-top: -6px
-  height: 20px
-  width: 20px
-  background: var(--color-accent)
-  border-radius: 50%
-  cursor: pointer
-  border: none
-
-input[type="range"]:focus
-  outline: none
-
-.h2
+.h2 
   font-size: 1.2rem
 
 // Utility-Klassen (falls nicht schon vorhanden)
@@ -367,25 +298,9 @@ input[type="range"]:focus
     grid-template-columns: 1fr
     gap: 1rem
 
-  .kh-container
-    display: grid
-    grid-template-columns: 1fr 
-    gap: 1rem
+ 
 
-    .kh-label
-      color: var(--color-text)
-      font-size: 1.2rem
-    .kh-cell
-      display: flex
-      align-items: center       // Vertikale Zentrierung
-      gap: 1rem              // Abstand zwischen Bild und Text
-      color: var(--color-text)  // Textfarbe
 
-.avatar-img
-  border-radius: 50%
-  width: 3.5rem
-  height: 3.5rem
-  object-fit: cover
 
 .vertical-center
   align-items: center      // Vertikale Zentrierung
@@ -424,47 +339,6 @@ input[type="range"]:focus
 
 .mb-2
   margin-bottom: 1rem
-
-
-// Countdown-spezifische Klassen
-.countdown-timer
-  display: flex
-  align-items: center
-  color: var(--color-text)
-  justify-content: center
-  font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
-
-.countdown-item
-  display: flex
-  flex-direction: column
-  align-items: center
-  margin: 0 0.5rem
-
-.countdown-digits
-  display: flex
-  font-size: 1.8rem
-
-.countdown-digit
-  margin: 0 0.1rem
-  padding: 0.2rem 0.4rem
-  background-color: var(--color-bg-light)
-  border-radius: 15px
-
-.countdown-label-item
-  font-size: 0.75rem
-  letter-spacing: 0.05rem
-  margin-top: 0.25rem
-  color: var(--color-text-light)
-
-.countdown-sep
-  display: inline-block
-  vertical-align: middle
-  font-size: 1.5rem
-  padding-bottom: 1.5rem
-  margin: -0.5rem
-
-
-
 
 
 

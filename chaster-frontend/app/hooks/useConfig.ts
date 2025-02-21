@@ -1,12 +1,17 @@
 import { useState, useCallback, useEffect } from 'react';
-import { UpdateConfigDto, GetConfigDto } from './config.dto';
+import { ConfigDto } from '../schemas/config.dto';
+
+
+interface NestedConfigDto {
+  config: ConfigDto;
+}
 
 export function useConfig(token: string) {
-  const [config, setConfig] = useState<UpdateConfigDto | null>(null);
+  const [config, setConfig] = useState<ConfigDto | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const loadConfig = useCallback(async (): Promise<GetConfigDto | null> => {
+  const loadConfig = useCallback(async (): Promise<ConfigDto | null> => {
     setLoading(true);
     setError(null);
     try {
@@ -29,14 +34,15 @@ export function useConfig(token: string) {
     }
   }, [token]);
 
-  async function saveConfig(newConfig: UpdateConfigDto) {
+  async function saveConfig(token: string, newConfig: ConfigDto) {
     setLoading(true);
     setError(null);
+    const config = { config: newConfig };
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/config/${token}`, {
-        method: 'PATCH',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, ...newConfig }),
+        body: JSON.stringify({ token, ...config }),
       });
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);

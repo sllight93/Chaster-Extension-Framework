@@ -118,15 +118,6 @@
                             <a href="#bootstrap" title="src/main.ts" ><b>bootstrap</b>&nbsp;&nbsp;&nbsp;(src/.../main.ts)</a>
                         </li>
                         <li>
-                            <a href="#configGet" title="src/utils/configUtil.ts" ><b>configGet</b>&nbsp;&nbsp;&nbsp;(src/.../configUtil.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#configSet" title="src/utils/configUtil.ts" ><b>configSet</b>&nbsp;&nbsp;&nbsp;(src/.../configUtil.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#configUpdate" title="src/utils/configUtil.ts" ><b>configUpdate</b>&nbsp;&nbsp;&nbsp;(src/.../configUtil.ts)</a>
-                        </li>
-                        <li>
                             <a href="#createLogEntry" title="src/utils/logUtils.ts" ><b>createLogEntry</b>&nbsp;&nbsp;&nbsp;(src/.../logUtils.ts)</a>
                         </li>
                         <li>
@@ -134,6 +125,12 @@
                         </li>
                         <li>
                             <a href="#freezeLock" title="src/utils/lockUtils.ts" ><b>freezeLock</b>&nbsp;&nbsp;&nbsp;(src/.../lockUtils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getConfig" title="src/utils/configUtils.ts" ><b>getConfig</b>&nbsp;&nbsp;&nbsp;(src/.../configUtils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getSession" title="src/utils/sessionUtils.ts" ><b>getSession</b>&nbsp;&nbsp;&nbsp;(src/.../sessionUtils.ts)</a>
                         </li>
                         <li>
                             <a href="#getSessionAuthData" title="src/utils/sessionUtils.ts" ><b>getSessionAuthData</b>&nbsp;&nbsp;&nbsp;(src/.../sessionUtils.ts)</a>
@@ -145,13 +142,19 @@
                             <a href="#removeTimeLock" title="src/utils/lockUtils.ts" ><b>removeTimeLock</b>&nbsp;&nbsp;&nbsp;(src/.../lockUtils.ts)</a>
                         </li>
                         <li>
-                            <a href="#stripConfig" title="src/utils/configUtil.ts" ><b>stripConfig</b>&nbsp;&nbsp;&nbsp;(src/.../configUtil.ts)</a>
+                            <a href="#setConfig" title="src/utils/configUtils.ts" ><b>setConfig</b>&nbsp;&nbsp;&nbsp;(src/.../configUtils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#stripConfig" title="src/utils/sessionUtils.ts" ><b>stripConfig</b>&nbsp;&nbsp;&nbsp;(src/.../sessionUtils.ts)</a>
                         </li>
                         <li>
                             <a href="#toggleFreezeLock" title="src/utils/lockUtils.ts" ><b>toggleFreezeLock</b>&nbsp;&nbsp;&nbsp;(src/.../lockUtils.ts)</a>
                         </li>
                         <li>
                             <a href="#unfreezeLock" title="src/utils/lockUtils.ts" ><b>unfreezeLock</b>&nbsp;&nbsp;&nbsp;(src/.../lockUtils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#updateSession" title="src/utils/sessionUtils.ts" ><b>updateSession</b>&nbsp;&nbsp;&nbsp;(src/.../sessionUtils.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -696,393 +699,6 @@ und übermittelt diese Aktion an die PartnerExtensionsApi.</p>
 
         </tbody>
     </table>
-</section>    <h3>src/utils/configUtil.ts</h3>
-    <section data-compodoc="block-methods">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="configGet"></a>
-                    <span class="name">
-                        <span ><b>configGet</b></span>
-                        <a href="#configGet"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>configGet(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, options?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Ruft die aktuelle Konfiguration ab.
-Es wird angenommen, dass die API-Antwort ein session-Objekt enthält, in dem:</p>
-<ul>
-<li>Die Konfiguration unter session.config zu finden ist.</li>
-<li>metadata und data auf oberster Ebene enthalten sind.</li>
-</ul>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>token</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Das Token, über das intern die Session ermittelt wird.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>options</td>
-                                            <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Optionale zusätzliche Request-Parameter.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/SetConfigDto.html" target="_self" >Promise&lt;SetConfigDto&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>Die gesäuberte Konfiguration als SetConfigDto.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="configSet"></a>
-                    <span class="name">
-                        <span ><b>configSet</b></span>
-                        <a href="#configSet"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>configSet(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, config: <a href="../interfaces/SetConfigDto.html" target="_self">SetConfigDto</a>, options?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Setzt die vollständige Konfiguration.
-Es wird erwartet, dass der übergebene Input exakt dem SetConfigDto entspricht.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>token</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Das Token, über das intern die Session ermittelt wird.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>config</td>
-                                            <td>
-                                                            <code><a href="../interfaces/SetConfigDto.html" target="_self" >SetConfigDto</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Das vollständige Konfigurationsobjekt.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>options</td>
-                                            <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Optionale zusätzliche Request-Parameter.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="configUpdate"></a>
-                    <span class="name">
-                        <span ><b>configUpdate</b></span>
-                        <a href="#configUpdate"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>configUpdate(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, newConfig: Partial, options?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Aktualisiert (merged) die Konfiguration.
-Zunächst wird die bestehende Konfiguration abgerufen. Anschließend werden die neuen Werte
-per Shallow-Merge in die aktuelle Konfiguration integriert (bestehende Felder werden durch die neuen ersetzt).
-Das vollständige, gemergte Objekt wird dann versendet.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>token</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Das Token, über das intern die Session ermittelt wird.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>newConfig</td>
-                                            <td>
-                                                        <code>Partial</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Ein Teilobjekt des SetConfigDto, das die zu aktualisierenden Felder enthält.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                                <td>options</td>
-                                            <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    Yes
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Optionale zusätzliche Request-Parameter.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="stripConfig"></a>
-                    <span class="name">
-                        <span ><b>stripConfig</b></span>
-                        <a href="#stripConfig"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>stripConfig(session: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-description"><p>Entfernt alle nicht im Schema definierten Felder aus der Konfiguration.
-Es wird angenommen, dass das erlaubte Schema im Feld session.config folgende Schlüssel vorsieht:
-difficulty, votes_target, count_only_loggedin, split, daily_quota, punish_mult.</p>
-<p>Dabei bleibt die komplette, eventuell verschachtelte Struktur der einzelnen Felder erhalten.
-metadata und data werden aus dem übergebenen session-Objekt vollständig übernommen.</p>
-</div>
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                                <td>Description</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>session</td>
-                                            <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                            <td>
-                                                    <ul>
-<li>Das Session-Objekt, wie es von der API zurückgegeben wird.</li>
-</ul>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../interfaces/SetConfigDto.html" target="_self" >SetConfigDto</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                <p>Die gesäuberte Konfiguration als SetConfigDto.</p>
-
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </section>    <h3>src/utils/logUtils.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -1255,9 +871,263 @@ ein Payload-Objekt und übermittelt diese Aktion an die PartnerExtensionsApi.</p
             </tr>
         </tbody>
     </table>
+</section>    <h3>src/utils/configUtils.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getConfig"></a>
+                    <span class="name">
+                        <span ><b>getConfig</b></span>
+                        <a href="#getConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getConfig(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, options?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>token</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ConfigDto.html" target="_self" >Promise&lt;ConfigDto&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setConfig"></a>
+                    <span class="name">
+                        <span ><b>setConfig</b></span>
+                        <a href="#setConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setConfig(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updatePartnerConfigurationDto: UpdatePartnerConfigurationDto, options?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>token</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>updatePartnerConfigurationDto</td>
+                                            <td>
+                                                        <code>UpdatePartnerConfigurationDto</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    <h3>src/utils/sessionUtils.ts</h3>
     <section data-compodoc="block-methods">
     <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSession"></a>
+                    <span class="name">
+                        <span ><b>getSession</b></span>
+                        <a href="#getSession"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSession(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, options?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ruft die aktuelle Konfiguration ab.
+Es wird angenommen, dass die API-Antwort ein session-Objekt enthält, in dem:</p>
+<ul>
+<li>Die Konfiguration unter session.config zu finden ist.</li>
+<li>metadata und data auf oberster Ebene enthalten sind.</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>token</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Das Token, über das intern die Session ermittelt wird.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Optionale zusätzliche Request-Parameter.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/PrivateSessionDto.html" target="_self" >Promise&lt;UpdatePrivateSessionDto&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Die gesäuberte Konfiguration als SetConfigDto.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
@@ -1333,6 +1203,190 @@ Session-ID in der Antwort gefunden, so wird ein Fehler ausgelöst.</p>
 <li>lockId: Die Lock-ID der Session.</li>
 </ul>
 
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stripConfig"></a>
+                    <span class="name">
+                        <span ><b>stripConfig</b></span>
+                        <a href="#stripConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>stripConfig(session: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Entfernt alle nicht im Schema definierten Felder aus der Konfiguration.
+Es wird angenommen, dass das erlaubte Schema im Feld session.config folgende Schlüssel vorsieht:
+difficulty, votes_target, count_only_loggedin, split, daily_quota, punish_mult.</p>
+<p>Dabei bleibt die komplette, eventuell verschachtelte Struktur der einzelnen Felder erhalten.
+metadata und data werden aus dem übergebenen session-Objekt vollständig übernommen.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>session</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Das Session-Objekt, wie es von der API zurückgegeben wird.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/PrivateSessionDto.html" target="_self" >PrivateSessionDto</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Die gesäuberte Konfiguration als SetConfigDto.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSession"></a>
+                    <span class="name">
+                        <span ><b>updateSession</b></span>
+                        <a href="#updateSession"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateSession(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, newConfig: <a href="../undefineds/UpdatePrivateSessionDto.html" target="_self">UpdatePrivateSessionDto</a>, options?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Aktualisiert (merged) die Konfiguration.
+Zunächst wird die bestehende Konfiguration abgerufen. Anschließend werden die neuen Werte
+per Shallow-Merge in die aktuelle Konfiguration integriert (bestehende Felder werden durch die neuen ersetzt).
+Das vollständige, gemergte Objekt wird dann versendet.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>token</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Das Token, über das intern die Session ermittelt wird.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>newConfig</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#UpdatePrivateSessionDto" target="_self" >UpdatePrivateSessionDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Ein Teilobjekt des SetConfigDto, das die zu aktualisierenden Felder enthält.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>options</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Optionale zusätzliche Request-Parameter.</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
                             </div>
                 </td>
             </tr>
